@@ -1,6 +1,6 @@
 # Data Science & FinTech Intelligence Portfolio (R Programming) 🚀
 
-Welcome to my professional data science repository. This space showcases production-ready R code, structured data pipeline engineering, exploratory data analysis (EDA), and machine learning implementations designed to solve real-world financial and statistical problems.
+Welcome to my professional data science portfolio. This space showcases production-ready R code, structured data pipeline engineering, exploratory data analysis (EDA), and machine learning implementations designed to solve real-world financial and statistical problems.
 
 ---
 
@@ -10,19 +10,23 @@ Welcome to my professional data science repository. This space showcases product
 In the rapidly expanding Buy Now Pay Later (BNPL) Fintech sector, default rates pose a massive operational risk to lenders. Traditional static credit metrics (like basic history) often fail to capture immediate digital risk. This project builds a **Dynamic Credit Risk Intelligence Platform** that blends traditional financial pillars (Income, Credit Scores) with digital behavioral metadata to classify borrowers in real-time.
 
 ### 🛠️ The Technical Pipeline
-- [cite_start]**Data Engineering:** Managed and synthetically fused a robust dataset of 50,000 transaction records utilizing `dplyr` left-joins to generate a unified "Customer 360" view[cite: 70, 75, 584, 1104].
-- [cite_start]**Feature Sanitization & Audit:** Implemented Pearson correlation heatmaps to programmatically detect and drop redundant variables, preventing multicollinearity and data leakage[cite: 805, 806, 831, 832].
-- [cite_start]**Handling Class Imbalance:** Leveraged ROSE sampling (`ovun.sample`) to perfectly balance the skewed target variable (`Is_Bad`), ensuring the algorithm trains without majority-class bias[cite: 1180, 1192, 1194].
-- [cite_start]**The Engine (Random Forest):** Selected an ensemble Random Forest Classifier (`ntree = 100`, `mtry = 3`) to map highly complex, non-linear consumer risk patterns without risking overfitting[cite: 1247, 1253, 1263, 1264, 1277, 1278].
-- [cite_start]**Cloud Deployment:** Wrapped the backend predictive model into an interactive, enterprise-grade **R Shiny Web Application** deployed live on cloud servers for non-technical credit officers[cite: 1382, 1415].
+- **Data Engineering:** Managed and synthetically fused a robust dataset of 50,000 transaction records utilizing `dplyr` left-joins to generate a unified "Customer 360" view.
+- **Feature Sanitization & Audit:** Implemented Pearson correlation heatmaps to programmatically detect and drop redundant variables, preventing multicollinearity and data leakage.
+- **Handling Class Imbalance:** Leveraged ROSE sampling (`ovun.sample`) to perfectly balance the skewed target variable (`Is_Bad`), ensuring the algorithm trains without majority-class bias.
+- **The Engine (Random Forest):** Selected an ensemble Random Forest Classifier (`ntree = 100`, `mtry = 3`) to map highly complex, non-linear consumer risk patterns without risking overfitting.
+- **Cloud Deployment:** Wrapped the backend predictive model into an interactive, enterprise-grade **R Shiny Web Application** deployed live on cloud servers for non-technical credit officers.
 
 ### 📈 Model Evaluation Metrics (Testing Phase)
-[cite_start]Evaluated on a strict, unseen 10,500 record hold-out validation set, the model achieved world-class performance[cite: 1289]:
-- [cite_start]**Overall Accuracy:** 98.4% (Significantly outperforming the No Information Rate) [cite: 1307, 1310]
-- [cite_start]**Sensitivity:** 96.96% (Flawless capability to approve credit-worthy clients) [cite: 1320]
-- [cite_start]**Specificity:** 99.94% (Near-perfect risk shield; caught 5,065 defaults while missing only 3) [cite: 1301, 1302, 1303, 1322]
-- [cite_start]**Cohen’s Kappa Score:** 0.968 (Proves the model's high reliability and rules out random chance) [cite: 1315]
-- [cite_start]**Out-of-Bag (OOB) Error Rate:** 1.76% [cite: 1267]
+Evaluated on a strict, unseen 10,500 record hold-out validation set, the model achieved world-class performance:
+- **Overall Accuracy:** 98.4% (Significantly outperforming the No Information Rate)
+- **Sensitivity:** 96.96% (Flawless capability to approve credit-worthy clients)
+- **Specificity:** 99.94% (Near-perfect risk shield; caught 5,065 defaults while missing only 3)
+- **Cohen’s Kappa Score:** 0.968 (Proves the model's high reliability and rules out random chance)
+- **Out-of-Bag (OOB) Error Rate:** 1.76%
+
+### 🔗 Project Live Assets
+* **Interactive Web Application:** [Live R Shiny Dashboard](https://vipasharai.shinyapps.io/fintechapp/)
+* **Comprehensive Technical Compilation:** [Full Project Report on RPubs](https://rpubs.com/Vipasharai16/1428751)
 
 ---
 
@@ -57,6 +61,6 @@ This section contains automated solutions for complex data transformation, missi
 
 ---
 ### 👤 Developer Profile
-- [cite_start]**Name:** Vipasha Rai [cite: 9, 24]
+- **Name:** Vipasha Rai
 - **Specialization:** Master of Computer Applications (MCA) – Data Science Specialty 
-- [cite_start]**University:** School of Computer Applications, Lovely Professional University [cite: 13, 15, 16]
+- **University:** School of Computer Applications, Lovely Professional University
