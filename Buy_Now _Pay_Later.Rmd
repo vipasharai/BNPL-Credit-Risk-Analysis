@@ -1,0 +1,91 @@
+library(shiny)
+library(randomForest)
+
+# 1. Force the app to look in the current directory
+setwd(getwd())
+
+# 2. Load Model & Dataset (These MUST be in the same folder as app.R)
+# If files are in C:\FintechApp, this will work perfectly now
+model <- readRDS("bnpl_credit_risk_model.rds")
+bnpl_dataset <- read.csv("bnpl_dataset.csv") 
+
+# 3. UI Layout
+ui <- navbarPage(
+  title = "BNPL Credit Risk Portal",
+  
+  tags$head(tags$style(HTML("
+      body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+      .custom-card { background-color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+      h1, h3 { color: #003366; font-weight: bold; }
+      .btn-primary { background-color: #003366 !important; border-color: #003366 !important; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; }
+      .navbar { background-color: #003366 !important; }
+      .navbar-default .navbar-nav > li > a { color: white !important; }
+  "))),
+  
+  tabPanel("Home", fluidPage(div(class = "custom-card", 
+      h1("Welcome to BNPL Risk Assessment"),
+      p("Specialized ML tool for Automated Credit Risk Assessment."),
+      hr(),
+      h3("Project Overview"),
+      p("Predicting borrower repayment behavior using Random Forest.")
+  ))),
+  
+  tabPanel("Risk Assessment",
+           sidebarLayout(
+             sidebarPanel(
+               class = "custom-card",
+               h4("Enter User Details"),
+               numericInput("customer_age", "Customer Age:", value = 25),
+               selectInput("gender", "Gender:", choices = c("Male", "Female")),
+               numericInput("annual_income", "Annual Income:", value = 50000),
+               numericInput("credit_score", "Credit Score:", value = 700),
+               selectInput("purchase_cat", "Purchase Category:", choices = c("Electronics", "Clothing", "Home", "Other")),
+               selectInput("device_type", "Device Type:", choices = c("Mobile", "Desktop", "Tablet")),
+               actionButton("predict_btn", "Evaluate Risk", class = "btn-primary")
+             ),
+             mainPanel(
+               div(class = "custom-card", 
+                   h3("Assessment Result"),
+                   verbatimTextOutput("prediction_output")
+               )
+             )
+           )
+  )
+)
+
+# 4. Server Logic
+server <- function(input, output) {
+  
+  result <- eventReactive(input$predict_btn, {
+    
+    # We map user inputs to the model's schema.
+    # Note: Using 'levels()' from bnpl_dataset ensures the factor levels match exactly.
+    new_data <- data.frame(
+      Customer_Age.x = as.numeric(input$customer_age),
+      Gender.x = factor(input$gender, levels = levels(as.factor(bnpl_dataset$Gender.x))),
+      Annual_Income.x = as.numeric(input$annual_income),
+      Credit_Score.x = as.numeric(input$credit_score),
+      Purchase_Category.x = factor(input$purchase_cat, levels = levels(as.factor(bnpl_dataset$Purchase_Category.x))),
+      Device_Type = factor(input$device_type, levels = levels(as.factor(bnpl_dataset$Device_Type))),
+      
+      # Backend Defaults (To ensure 13-feature input)
+      BNPL_Provider.x = factor("Provider_A", levels = levels(as.factor(bnpl_dataset$BNPL_Provider.x))),
+      Purchase_Amount.x = 1000, 
+      Income_Bracket = factor("Medium", levels = levels(as.factor(bnpl_dataset$Income_Bracket))),
+      Connection_Type = factor("WiFi", levels = levels(as.factor(bnpl_dataset$Connection_Type))),
+      Checkout_Time_Seconds = 30,
+      Browser = factor("Chrome", levels = levels(as.factor(bnpl_dataset$Browser))),
+      Cluster = factor("Cluster_1", levels = levels(as.factor(bnpl_dataset$Cluster)))
+    )
+    
+    predict(model, new_data)
+  })
+  
+  output$prediction_output <- renderPrint({
+    final_pred <- result()
+    if(final_pred == 1) "Result: HIGH RISK - Default Probability Detected" 
+    else "Result: LOW RISK - Loan Approved"
+  })
+}
+
+shinyApp(ui = ui, server = server)
